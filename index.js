@@ -1,20 +1,19 @@
-var parser = require('rss-parser');
 var server = require('./server.js').server;
 var SQL = require('./SqlAction.js');
+var sql = require('./server.js').sql;
 
+server.post('/setup', (req, res) => SQL.setup(req, res, sql));
+server.post('/login', (req, res) => SQL.login(req, res, sql));
 
-server.post('/setup', (req, res) => SQL.setup(req, res))
-server.post('/login', (req, res) => SQL.login(req, res))
-
-server.get('/user_channel', (req, res) => SQL.userChannel(req, res))
-server.post('/channel/create', (req, res) => SQL.channelCreate(req, res));
-server.put('/channel/:id', (req, res) => SQL.changeChannel(req, res));
-server.delete('/channel/:id', (req, res) => SQL.deleteChannel(req, res))
-// server.get('/channel', (req, res) => SQL.allChannel(req, res));
+server.get('/user_channel', (req, res) => SQL.userChannel(req, res, sql));
+server.post('/channel/create', (req, res) => SQL.channelCreate(req, res, sql));
+server.put('/channel/:id', (req, res) => SQL.changeChannel(req, res, sql));
+server.delete('/channel/:id', (req, res) => SQL.deleteChannel(req, res, sql));
+server.get('/channel/:id', (req, res) => SQL.feedChannel(req, res, sql));
 
 server.get('/user', (req, res) => {
-    res.send(req.user);
-})
+	res.send(req.user);
+});
 
 // server.get('/users', (req, res) => {
 //     sql.query('SELECT * FROM user',
