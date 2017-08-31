@@ -14,17 +14,3 @@ server.get('/channel/:id', (req, res) => SQL.feedChannel(req, res, sql));
 server.get('/user', (req, res) => {
 	res.send(req.user);
 });
-
-// server.get('/users', (req, res) => {
-//     sql.query('SELECT * FROM user',
-//         (err, result) => {
-//             if (err) res.send(err);
-//             res.send(result);
-//         });
-// })
-
-// server.get('/', (req, res) => {
-//     console.log(feedParser('http://feeds.reuters.com/reuters/topNews'));
-//     res.send('');
-//     // res.end()
-// })

@@ -29,15 +29,14 @@ server.use((req, res, next) => {
 		if (token) {
 			jwt.verify(token, server.get('secret'), function (err, decoded) {
 				if (err) {
-					res.end('Invalid token');
+					res.sendStatus(403);
 				} else {
 					req.user = decoded;
 					next();
 				}
 			});
 		} else {
-			res.statusCode = 403;
-			res.end('Forbidden');
+			res.sendStatus(403);
 		}
 	} else {
 		next();
@@ -91,5 +90,6 @@ sql.connect((err) => {
 		});
 	});
 });
-exports.sql = sql;
+
 exports.server = server;
+exports.sql = sql;
